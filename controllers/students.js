@@ -3,6 +3,12 @@ const { Op } = require("sequelize");
 
 class StudentController {
   static async getAllStudents(req, res) {
+    const parent = req.query.parent;
+
+    if(!Number.isInteger(+parent) && parent != null){
+      return res.sendStatus(400);
+    }
+
     Student.findAll({
       include: Parent,
     })
@@ -18,14 +24,16 @@ class StudentController {
 
     Student.findOne({
       where: {
-        id: +id,
-        name: {
-          [Op.like]: "%John%",
-        },
+        id: +id
       },
     })
       .then((data) => {
-        res.status(200).json(data);
+        if(data){
+          res.status(200).json(data);
+        }
+        else{
+          res.status(404);
+        }
       })
       .catch((err) => {
         res.status(500).json(err);
@@ -34,6 +42,10 @@ class StudentController {
 
   static async createOneStudent(req, res) {
     const { name, date_of_birth } = req.body;
+
+    if(!name || !date_of_birth){
+      return res.sendStatus(400);
+    }
 
     Student.create({
       name,
