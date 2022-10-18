@@ -14,8 +14,8 @@ app.post("/students", StudentController.createOneStudent);
 app.get("/students/:id", StudentController.getStudentById);
 app.get("/parents", StudentController.getAllParents);
 
-// module.exports = app;
+module.exports = app;
 
-app.listen(PORT, () => {
-  console.log(`Server is running at port: http://localhost:${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Server is running at port: http://localhost:${PORT}`);
+// });

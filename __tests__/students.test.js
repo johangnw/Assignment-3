@@ -4,9 +4,8 @@ const { sequelize } = require('../models');
 
 const dummyData = {
     name : 'Danang Tejo',
-    date_of_birth : '1997-03-15'
+    date_of_birth : '1997-03-15T00:00:00.000Z'
 }
-
 
 describe('POST /students', () => {
     it('should send response with 201 status code', (done) => {
@@ -29,6 +28,7 @@ describe('POST /students', () => {
 })
 
 describe('POST /students', () => {
+
     it('should send response with 400 status code', (done) => {
         request(app)
         .post('/students')
@@ -46,12 +46,11 @@ describe('GET /students', () => {
     it('should send response with 200 status code', (done) => {
         request(app)
         .get('/students')
-        .send()
         .end(function(err, res){
             if(err) done(err);
 
             expect(res.status).toEqual(200);
-            expect(typeof res.body).toEqual("array")
+            expect(typeof res.body).toEqual("object")
             done();
         })
     })
@@ -62,7 +61,6 @@ describe('GET /students?parent=asdwa', () => {
     it('should send response with 400 status code', (done) => {
         request(app)
         .get('/students?parent=asdfw')
-        .send()
         .end(function(err, res){
             if(err) done(err);
 
@@ -78,7 +76,6 @@ describe('GET /students/:id', () => {
     it('should send response with 200 status code', (done) => {
         request(app)
         .get('/students/1')
-        .send()
         .end(function(err, res){
             if(err) done(err);
 
@@ -98,7 +95,6 @@ describe('GET /students/:id', () => {
     it('should send response with 404 status code', (done) => {
         request(app)
         .get('/students/-1')
-        .send()
         .end(function(err, res){
             if(err) done(err);
 

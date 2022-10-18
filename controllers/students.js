@@ -32,7 +32,7 @@ class StudentController {
           res.status(200).json(data);
         }
         else{
-          res.status(404);
+          res.sendStatus(404);
         }
       })
       .catch((err) => {
